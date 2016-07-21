@@ -217,61 +217,121 @@ html
             printf("%d\n", numbers[999999]);
         aside
           | But other times the program reads so far ahead that your computer says
-          | "no, get off my memory - this bit is mine". An
-
-
-      section
-        h2 Keyboard Interaction
-        h3 Powered by <a href="https://github.com/markdalgleish/bespoke-keys">bespoke-keys</a>
-
-      section
-        h2 Touch Interaction
-        h3 Powered by <a href="https://github.com/markdalgleish/bespoke-touch">bespoke-touch</a>
+          | "no, get off my memory - this bit is mine". And that's where we get the
+          | `Segmentation fault` from. And it's 11 because that's the error code for
+          | a segmentation fault.
+          | (it's 139 in the terminal because 128+x is exit value for things
+          | happening to you).
 
       section
-        h2 Responsive Slides
-        h3 Powered by <a href="https://github.com/markdalgleish/bespoke-scale">bespoke-scale</a>
+        h2 Strings
+        img(src="images/string.jpg")
+
+        aside
+          | So all strings are are arrays of characters, terminated by a special
+          | character `\0`, which tells C to stop reading here. Very good. Lets
+          | look at this in action with another great library function, scanf()
 
       section
-        h2 Bullet List
-        h3.bullet Powered by <a href="https://github.com/markdalgleish/bespoke-bullets">bespoke-bullets</a>
-        ul
-          li Bullet 1
-          li Bullet 2
-          li Bullet 3
-
-      section
-        h2 Syntax Highlighting
-        h3 Powered by <a href="http://twitter.com/LeaVerou">Lea Verou</a>'s <a href="https://github.com/LeaVerou/prism">Prism</a>
         pre
-          code.language-javascript.
-            bespoke.from('article', [
-              classes(),
-              keys(),
-              touch(),
-              bullets('li, .bullet')
-            ]);
+          code.language-c.
+            char string[10];
 
-      section(data-bespoke-hash='named-route')
-        h2 Named Route
-        h3 Powered by <a href="https://github.com/markdalgleish/bespoke-hash">bespoke-hash</a>
-        p Look up! This route has been named with a <em>'data-bespoke-hash'</em> attribute.
+            scanf("%s", string);
+            printf("string: %d\n", number);
 
-      section.emphatic-text(data-bespoke-backdrop='emphatic')
-        h2 Emphatic Slide!
-        h3 Powered by <a href="https://github.com/markdalgleish/bespoke-backdrop">bespoke-backdrop</a>
+        aside
+          | To read a string into a C program, we do something quite unintuitive
+          | to us: we pass a variable into a function, and tell the function what
+          | sort of input
 
       section
-        h2.bullet Just the beginning...
-        br
+        pre
+          code.language-c.
+            int number;
+
+            scanf("%d\n", &number);
+            printf("number: %d\n", number);
+
+        aside
+          | But with a number, we have to do something a bit odd - we have to pass
+          | in the number with an & in front of it. This changes the variable from being
+          | an int to being a pointer to an int.
+
+      section
+        h2 Pointers
+        img(src="images/pointer.png")
+
+        aside
+          | now, all a pointer is is a type which tells C the memory location of
+          | another variable. So when we &'d number, we created an int pointer,
+          | which holds the memory location of the int 'number'
+
+      section
+        pre
+          code.language-c.
+            int number;
+            number = 55;
+
+            int *pointer_to_number;
+            pointer_to_number = &number;
+
+        aside
+          | but you can make a pointer yourself - you just declare the variable
+          | with a * in front of it. And you can go from the pointer back to the
+          | variable it points to by using * as well.
+          | Under the hood, all an array is is a pointer to a memory location,
+          | and when you access elements, you're incrementing that pointer to the
+          | next memory location
+
+      section
+        h1 TDD in C
+
+        aside
+          | you can do TDD in C - there are libraries out there, but I prefer to
+          | use a very simple library function called assert. Let's take a look at
+          | that, along with some header files
+
+      section
+        h2 Resources
+        h3
+          i
+            a(href="http://cslibrary.stanford.edu/101/")
+              | Essential C - The Stanford CS Library
+          p
+            sub Nick Parlante
+        h3
+          i
+            a(href="http://www.cs.yale.edu/homes/aspnes/classes/223/notes.pdf")
+              | Notes on Data Structures and Programming Techniques
+          p
+            sub James Aspnes
+        h3
+          i
+            a(href="https://en.wikipedia.org/wiki/The_C_Programming_Language")
+              | The C Programming Language
+          p
+            sub Brian W. Kernighan & Dennis M. Richie
+        h3
+            i
+              a(href="https://www.bell-labs.com/usr/dmr/www/chist.pdf")
+                | The Development of the C Language
+            p
+              sub Dennis M. Richie
+
+      section
+        h2 Takeaways
         ul
-          li Edit <a href="http://jade-lang.com/">Jade</a> markup in <em>'src/index.jade'</em>
-          li Edit <a href="http://learnboost.github.io/stylus/">Stylus</a> styles in <em>'src/styles/main.styl'</em>
-          li Edit JavaScript in <em>'src/scripts/main.js'</em>
-        br
-        ul
-          li
-            strong Enjoy! :)
-            a(href='http://twitter.com/markdalgleish')  -@markdalgleish
+          li C is not impossible...
+          li ... but it is hard
+          li C is still abstract...
+          li ... but is very 'close to the metal'
+          li C is dangerous ...
+          li ... so we have Rust and Go
+          li C is the origin of all thigs ...
+          li ... apart from Lisp
+
+      section
+        h1 Thanks
 
     script(src='build/build.js')
