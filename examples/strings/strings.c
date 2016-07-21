@@ -3,9 +3,9 @@
 int main() {
   char string[10];
 
+  printf("input a string: ");
   scanf("%s", string);
   printf("string: %s\n", string);
-  printf("\n\n");
   printf("second char: %c\n", string[1]);
 
   /*int number;*/
@@ -21,5 +21,5 @@ int main() {
   /*char *next_char = pointer + 1;*/
   /*printf("second character: %c\n", *next_char);*/
 
-  printf("first char: %c\n", *string);
+  /*printf("first char: %c\n", *string);*/
 }
