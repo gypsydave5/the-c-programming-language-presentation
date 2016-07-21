@@ -8,7 +8,9 @@ var bespoke = require('bespoke'),
   scale = require('bespoke-scale'),
   hash = require('bespoke-hash'),
   progress = require('bespoke-progress'),
-  forms = require('bespoke-forms');
+  forms = require('bespoke-forms'),
+  notes = require('bespoke-notes/dom');
+
 
 // Bespoke.js
 bespoke.from('article', [
@@ -20,11 +22,14 @@ bespoke.from('article', [
   scale(),
   hash(),
   progress(),
-  forms()
+  forms(),
+  notes()
 ]);
 
 // Prism syntax highlighting
 // This is actually loaded from "bower_components" thanks to
 // debowerify: https://github.com/eugeneware/debowerify
 require('prism');
+// require in extra language support
+require('prism/components/prism-c.min.js')
 

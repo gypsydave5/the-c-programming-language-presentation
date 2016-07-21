@@ -13,6 +13,212 @@ html
 
       section
         h1 The C Programming Language
+        aside
+          |Tonight I'd like to talk to you all about C, because I think that - even
+          |though we may never need to use this language in production (in fact it
+          |may be a terrible idea to use it in production), I think we can all learn
+          |something from learning it. Learning C helped me to understand both
+          |programming and my computer better.
+
+      section
+        h1 My Background
+        aside So I'd like to try and give some background on why I learnt a bit of C.
+
+      section
+        img(src="images/gopher.png" width="300")
+        aside
+          |First up is this little fella - the Go Gopher. I've been learning Go in a
+          |dedicated way for a number of months - it's great. But I noticed that
+          |almost all the docs and blog posts have a sentence that starts off "In C..."
+          |Go comes from C - that becomes really obvious when you see them both - and
+          |it was written in many respects to make up for C's deficiencies.
+
+      section
+        img(src="images/heap-sort.gif")
+        aside
+          |Next up is algorithms. Denise started a Coursera course on algorithms,
+          |and suggested I might like to join in. The languages they'd accept were
+          |Python (just like Ruby - meh), C++ (LOOKS HARD!), Java (bleaugh) and C.
+          |So I went with C. Denise said "C? Life on hard mode", and she was right.
+
+      section
+        h1 C's Background
+        aside Where is C from? Well, in the early 70s Bell labs was building a new operating
+          |system called Unix, on a computer called a PDP-7. Two of the guys working on it
+          |were a pair of very clever people called Ken Thompson and Dennis Richie
+
+      section
+        img(src="images/thompson-richie.jpg")
+        aside That's Richie on the right. The language they were using to
+          |program the PDP-7 was written by Thompson for another system, but it
+          |couldn't use all the advanced features of the computer. That language
+          |was called B, so Richie wrote an improved B. Which he called C.
+          |Because, well C comes after B. It was written to be a pretty
+          |high-level language which also allowed direct access to your
+          |computer's memory. Which made it great for writing operating systems.
+          |And so C is _everywhere_ - literally, your computer is running in it.
+          |It's in all of your computers right now. So let's get stuck in.
+
+      section
+        h1 "hello, world"
+        aside Let's write a "hello, world" together
+
+      section
+        img(src="/images/c-cover.png")
+        aside Fun fact: "hello, world" was popularised by this book, by Dennis Richie
+          |and Brian Kernighan (also of Bell Labs and Unix). It's so influential
+          |that people often refer to it and the style of writing code as "K&R"
+
+      section
+        pre
+          code.language-c.
+            #include #{'<stdio.h>'}
+
+            int main() {
+                printf("hello, world\n");
+            }
+
+        aside Crack open your favourite text editor and put this in. Let's save it
+          |as something useful like "hello-world.c". And now let's compile it. This is
+          |nice and easy. `gcc` is the Gnu Compiler Collection (formerly the Gnu C Compiler)
+          |so we write `gcc hello-world.c`. This produces an executable calle `a.out`
+          |So let's run that with `./a.out`. And, behold - hello world.
+          |Let's break that code down a little.
+
+      section
+        pre
+          code.language-c.
+            #include #{'<stdio.h>'}
+
+        aside first, the `include` thing at the top. That looks pretty weird, right?
+          |All it's doing is telling the c program to bring in some function definitions
+          |to the program you're writing. It's a bit like `require` in Ruby - but not
+          |quite. There are some subtleties. But here we're bringing in the header file
+          |`.h` - for `stdio` - functions that handle io. Like printing!
+
+      section
+        pre
+          code.language-c.
+            int main() {
+                printf("hello, world\n");
+            }
+
+        aside Next is a function called main, which is special in C, as it is in Java
+          |and Go, in that it's what gets run when the C program is executed. The `int` bit
+          |tells us that it's returning an int, the parentheses are the
+          |arguments - we're not using any - and then the body is in the curly
+          |braces. So familiar, right?
+          |And then, `printf`, which just prints to the screen the string literal that comes
+          |afterwards. And we end the line with a semicolon because, well, this is C.
+          |Anyone tell me why the return type is an int? And guess what the default
+          |return type is for main?
+
+      section
+        h1 Types
+
+        aside so I said the type is an int. What other types are there to play with in C?
+
+      section
+        h3
+          ul
+            li char
+            li int
+            li float
+            li double
+            li long
+            li short
+            li long long
+            li long double
+            li unsigned int
+            li unsigned long long
+
+        aside Ridiculous, but efficient. These basic types are determining how much
+          |memory the value you are storing will take up. What C is doing is reserving
+          |space for those values - and no more. For instance an int can store at
+          |least a 16 bit number - from −32767 to 32767. On a mac that's 2,147,483,648
+          |Let's see what that looks like in action.
+
+      section
+        pre
+          code.language-c.
+            int main() {
+              int int_number;
+              int_number = 2000000000;
+              printf("int_number: %d\n", int_number);
+
+              int_number = int_number + 2000000000;
+              printf("int_number after adding: %d\n", int_number);
+            }
+
+        aside
+          |We'd expect 2 billion plus 2 billion to equal 4 billion - but it
+          |doesn't.  This effect is called integer oveflow, and it's due to the
+          |fact that C has run out of bits to represent the larger number in the
+          |space we've allocated for it. If you'd like to understand why, look up
+          |`two's complement` on Wikipedia.
+          |To save the day we need a bigger boat - I mean integer type. `long long`
+          |should do the trick.
+
+      section
+        h1 Arrays
+
+        aside so I've not mentioned any complex data types so far - no maps, no
+          |sets, no FactoryFactoryProducer classes. Or even Strings. And that's
+          |because there aren't any - apart from arrays. And they're special too.
+
+      section
+        img(src="images/array.jpg")
+
+        aside
+          |so we're familiar with this set up, the array - you have a variable, you
+          |access its elements with this square bracket notation, you get the nth
+          |element. And that's exactly what you get in C... with some small caveats.
+          |let's take a look at some code.
+
+      section
+        pre
+          code.language-c.
+              int numbers[10], i;
+
+              for (i = 0; i < 10; i++) {
+                numbers[i] = i * i;
+              }
+
+              for (i = 0; i < 10; i++) {
+                printf("numbers[%d]: %d\n", i, numbers[i]);
+              }
+
+        aside
+          | [Explain code]
+          | But... what happens if we forget that arrays are zero indexed?
+
+      section
+        pre
+          code.language-c.
+            printf("%d\n", numbers[10]);
+        aside
+          | Now what do we get?
+
+      section
+        img(src="images/array.jpg")
+        aside
+          | When C assigns an array, it reserves a range of memory for it. We said
+          | `int[10]`, which means it will reserve 10 * the size of an int. And
+          | when we say `numbers[3]`, all C does is count 3 int-sized blocks of memory, and
+          | then give you the next int-sized block of memory.
+          | So when we say `numbers[10]` C just does the same
+          | thing, heading off into the middle distance. Sometimes we're lucky and
+          | we'll get something back - maybe we're reading a bit of our own code.
+
+      section
+        h2 Segmentation fault: 11
+        pre
+          code.language-c.
+            printf("%d\n", numbers[999999]);
+        aside
+          | But other times the program reads so far ahead that your computer says
+          | "no, get off my memory - this bit is mine". An
+
 
       section
         h2 Keyboard Interaction
