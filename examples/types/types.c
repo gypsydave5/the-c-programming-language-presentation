@@ -1,6 +1,8 @@
 #include <stdio.h>
 
 int main() {
+  // int is a type of number - but it can't handle really big numbers, something
+  // bad happens if it gets too big...
   int int_number;
   // two billion
   int_number = 2000000000;
@@ -13,8 +15,11 @@ int main() {
   // equals
   printf("int_number after adding: %d\n", int_number);
 
-  // run this and see what you get.
+  // In order to run this file this directory includes a `makefile`, which has
+  // building instructions. Take a look inside there for more details, and run
+  // this code a few times to see what happens.
   //
-  // fix it by changind the type of int to something bigger like a long long
-  // (remember to update the format string for printf)
+  // The current code is broken (beautifully). Fix it by changing the type of
+  // int to something bigger like a long long (remember to update the format
+  // string for printf)
 }
