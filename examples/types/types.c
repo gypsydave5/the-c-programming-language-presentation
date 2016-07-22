@@ -12,4 +12,9 @@ int main() {
 
   // equals
   printf("int_number after adding: %d\n", int_number);
+
+  // run this and see what you get.
+  //
+  // fix it by changind the type of int to something bigger like a long long
+  // (remember to update the format string for printf)
 }
